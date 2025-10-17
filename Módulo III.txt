@@ -1,0 +1,53 @@
+Comandos usados practica 1
+
+sudo nano /etc/default/grub
+sudo update-grub
+reboot
+
+passwd
+reboot -f
+
+============================================
+
+Comandos usados practica 2
+
+nano backup.sh
+
+#!/bin/bash
+
+echo "Iniciando backup..."
+tar -czvf /home/brayan/backup_$(date +%d-%m-%Y:%H:%M) /home/brayan
+echo "Backup realizado con exito"
+
+chmod +x backup.sh
+./backup.sh
+
+nano ifconfig.sh
+
+echo "Ingrese el nombre del archivo"
+read nombre_del_archivo
+ifconfig > "/home/brayan/Desktop/$nombre_del_archivo"
+echo "Informacion de ifconfig guardada"
+
+chmod +x ifconfig.sh
+./ifconfig.sh
+
+============================================
+
+Comandos usados practica 3
+
+ip a
+ping 10.0.0.85
+
+systemctl status ssh
+sudo systemctl start ssh
+ssh brayan@10.0.0.85
+
+ssh-keygen -f ~/.ssh/kali
+ls .ssh/
+
+ssh-copy-id -i brayan ~/.ssh/kali.pub brayan@10.0.0.85
+
+ssh -i ~/.ssh/kali brayan@10.0.0.85
+
+============================================
