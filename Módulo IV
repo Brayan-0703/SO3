@@ -1,0 +1,20 @@
+Comandos usados practica 1
+
+sudo apt install apache2
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo mkdir /var/www/site80
+sudo nano /var/www/site80/index.html
+sudo nano /etc/apache2/sites-available/host80.conf
+sudo a2dissite 000-default.conf
+sudo a2ensite host80.conf
+sudo systemctl reload apache2
+sudo mkdir /var/www/site8080
+sudo nano /var/www/site8080/index.html
+sudo nano /etc/apache2/ports.conf
+sudo nano /etc/apache2/sites-available/host8080.conf
+sudo a2ensite host8080.conf
+sudo systemctl reload apache2
+
+============================================
+
