@@ -1,0 +1,104 @@
+Comandos usados practica 1
+
+mkdir backup
+cd backup
+touch archivo{1..100}.txt
+ls
+sudo systemctl start ssh #(en ambos servidores)
+ip a
+rsync -a ~/backup brayan@10.0.0.85:~/
+ssh-keygen
+ssh-copy-id brayan@10.0.0.85
+nano ~/rsync.sh
+#!/bin/bash						  
+									  
+rsync -a ~/backup brayan@10.0.0.85:~/
+
+
+chmod +x ~/rsync.sh
+touch rsync.txt
+crontab -e
+* * * * * ~/rsync.sh
+ls
+
+============================================
+
+Comandos usados practica 2
+
+sudo nano /etc/hosts #(en ambos nodos)
+10.0.0.84	nodo1
+10.0.0.85	nodo2
+
+sudo apt install heartbeat #(en ambos nodos)
+sudo nano /etc/ha.d/authkeys #(en ambos nodos)
+auth 1 		
+1 sha1 password
+
+sudo chmod 600 /etc/ha.d/authkeys #(en ambos nodos)
+sudo nano /etc/ha.d/ha.cf #(en ambos nodos)
+logfacility local0
+keepalive 2
+deadtime 1
+warntime 5
+initdead 120
+bcast eth0
+node nodo1
+node nodo2
+auto_failback on
+
+sudo nano /etc/ha.d/haresources #(en ambos nodos)
+nodo1 IPaddr::10.0.0.200/24
+
+sudo systemctl start heartbeat && sudo systemctl enable heart #(en ambos nodos)
+ping 10.0.0.200
+sudo systemctl stop hearbeat
+
+============================================
+
+Comandos usados practica 3
+
+sudo apt update && sudo apt install apache2 keepalived
+echo "<html><body><h1>Server 1</h1></body></html>" | sudo tee /var/www/html/index.html #Server 1
+echo "<html><body><h1>Server 2</h1></body></html>" | sudo tee /var/www/html/index.html #Server 2
+
+sudo nano /etc/keepalived/keepalived.conf #Server 1
+vrrp_instance VI_1 {
+    state MASTER
+    interface eth0
+    virtual_router_id 51
+    priority 101
+    advert_int 1
+    
+    virtual_ipaddress {
+        10.0.0.200/24
+    }
+    
+    track_process {
+        apache2 
+    }
+}
+
+
+sudo nano /etc/keepalived/keepalived.conf #Server 2
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    
+    virtual_ipaddress {
+        10.0.0.200/24
+    }
+    
+    track_process {
+        apache2 
+    }
+}
+
+
+sudo systemctl start apache2 && sudo systemctl start keepalived #Server 1 y 2
+
+sudo systemctl stop apache2 #Server 1
+
+============================================
