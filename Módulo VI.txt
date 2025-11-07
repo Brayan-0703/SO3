@@ -1,0 +1,46 @@
+Comandos usados practica 1
+
+sudo apt install gnupg2
+mkdir cifrado
+nano prueba.txt
+cat prueba.txt
+gpg2 -c prueba.txt
+ls
+cat prueba.txt.gpg
+gpg2 -o prueba_descrifrado.txt -d prueba.txt.gpg
+ls
+cat prueba_descifrado.txt
+
+============================================
+
+Comandos usados practica 2
+
+sudo apt install apache2 vsftpd openssh-server
+sudo systemctl start apache2
+sudo systemctl start vsftpd
+sudo systemctl start ssh
+ip a
+
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+sudo iptables -A INPUT -p tcp --dport 21 -j DROP
+sudo iptables -L INPUT
+
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -L INPUT
+
+sudo apt install ufw
+sudo ufw enable
+sudo ufw deny 80/tcp
+sudo ufw deny 22/tcp
+sudo ufw deny 21/tcp
+sudo ufw status verbose
+
+sudo ufw allow 80/tcp
+sudo ufw allow 22/tcp
+sudo ufw allow 21/tcp
+sudo ufw status verbose
+
+============================================
