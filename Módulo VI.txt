@@ -27,8 +27,8 @@ sudo iptables -A INPUT -p tcp --dport 21 -j DROP
 sudo iptables -L INPUT
 
 sudo iptables -D INPUT -p tcp --dport 80 -j DROP
-sudo iptables -D INPUT -p tcp --dport 80 -j DROP
-sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -D INPUT -p tcp --dport 22 -j DROP
+sudo iptables -D INPUT -p tcp --dport 21 -j DROP
 sudo iptables -L INPUT
 
 sudo apt install ufw
