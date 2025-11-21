@@ -1,0 +1,67 @@
+Comandos usados practica 1
+
+SERVER
+
+sudo apt install nfs-kernel-server
+
+sudo mkdir -p /srv/nfs/SO3
+sudo touch /srv/nfs/SO3/adrian{1..100}.txt
+ls /srv/nfs/SO3
+sudo chown nobody:nogroup /srv/nfs/SO3
+sudo chmod 777 -R /srv/nfs/SO3
+
+sudo nano /etc/exports
+/srv/nfs/SO3 10.0.0.110(rw,sync,no_subtree_check)
+
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+
+cat /srv/nfs/SO3/adrian1.txt
+echo adios > /srv/nfs/SO3/adrian1.txt
+cat /srv/nfs/SO3/adrian1.txt
+
+CLIENTE
+
+sudo apt install nfs-common
+
+sudo mkdir -p /mnt/SO3
+sudo mount 10.0.0.109:/srv/nfs/SO3 /mnt/SO3
+ls /mnt/SO3
+
+echo hola > /mnt/SO3/adrian1.txt
+cat /mnt/SO3/adrian1.txt 
+cat /mnt/SO3/adrian1.txt
+
+sudo nano /etc/fstab
+10.0.0.109:/srv/nfs/SO3 /mnt/SO3 nfs defaults 0 0
+
+sudo mount -a
+sudo systemctl daemon-reload
+reboot
+
+ls /mnt/SO3
+
+============================================
+
+Comandos usados practica 2
+
+sudo apt install samba -y
+
+sudo mkdir -p /srv/samba/SO3
+sudo touch /srv/samba/SO3/adrian{1..100}.txt
+sudo chmod 777 -R /srv/samba/SO3
+sudo nano /etc/samba/smb.conf
+[SO3]
+path = /srv/samba/SO3
+browsable = yes
+writable = yes
+guest ok = no
+read only = no
+
+sudo smbpasswd -a brayan
+
+sudo systemctl restart smdb
+
+cat /srv/samba/SO3/adrian99.txt
+
+============================================
