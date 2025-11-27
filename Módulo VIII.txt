@@ -1,0 +1,61 @@
+Comandos usados practica 1
+
+sudo apt install docker.io -y
+sudo systemctl enable docker --now
+sudo docker pull nginx
+
+sudo mkdir -p /home/website
+echo '<h1>Brayan 20250703</h1>'' | sudo tee /home/website/index.html
+sudo docker run -d -p 8888:80 -v /home/website:/usr/share/nginx/html --name nginx nginx
+
+sudo docker ps -a
+firefox http://localhost:8888
+
+============================================
+
+Comandos usados practica 2
+
+sudo docker pull portainer/portainer-ce:latest
+sudo docker volume create portainer_data
+sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
+sudo docker ps -a
+firefox https://localhost:9443
+
+============================================
+
+Comandos usados practica 3
+
+sudo apt install docker-compose
+nano docker-compose.yml
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+volumes:
+  db_data:
+
+sudo docker-compose up -d
+
+============================================
