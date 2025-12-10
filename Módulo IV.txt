@@ -1,20 +1,99 @@
 Comandos usados practica 1
 
 sudo apt install apache2
-sudo systemctl enable apache2
-sudo systemctl start apache2
+sudo systemctl enable apache2 --now
+
 sudo mkdir /var/www/site80
 sudo nano /var/www/site80/index.html
+<html><body>Hola Mundo</body></html>
+
 sudo nano /etc/apache2/sites-available/host80.conf
+<VirtualHost *:80>
+  DocumentRoot /var/www/site80
+  ServerName localhost
+</VirtualHost>
+
 sudo a2dissite 000-default.conf
 sudo a2ensite host80.conf
 sudo systemctl reload apache2
+firefox localhost
+
 sudo mkdir /var/www/site8080
 sudo nano /var/www/site8080/index.html
+<html><body>Brayan, 2025-0703, Sistemas Operativos III</body></html>
+
 sudo nano /etc/apache2/ports.conf
+Listen 80
+Listen 8080
+
 sudo nano /etc/apache2/sites-available/host8080.conf
+<VirtualHost *:8080>
+  DocumentRoot /var/www/site8080
+  ServerName localhost
+</VirtualHost>
+
 sudo a2ensite host8080.conf
 sudo systemctl reload apache2
+firefox localhost:8080
+============================================
+
+Comandos usados practica 2
+
+sudo apt install postfix -y
+System mail name:
+Kali
+
+sudo dpkg-reconfigure postfix
+General mail configuration type:
+Internet site
+System mail name:
+Kali
+Recipient for root and postmaster mail:
+Kali20250703
+Other destinations to accept mail for (blank for none):
+Ok
+Force synchronous updates on mail queue?
+No
+Local networks:
+Ok
+Mailbox size limit (bytes):
+Ok
+Local address extension character:
+Ok
+Internet protocols to use:
+all
+
+sudo systemctl restart postfix
+sudo apt install mailutils -y
+
+sudo nano /etc/postfix/sasl/sasl_passwd
+[smtp.gmail.com]: "TuGmail":"Contraseña: https://myaccount.google.com/apppasswords"
+
+sudo postmap /etc/postfix/sasl/sasl_passwd
+sudo chmod 600 /etc/postfix/sasl/sasl_passwd
+sudo chmod 600 /etc/postfix/sasl/sasl_passwd.db
+
+sudo nano /etc/postfix/main.cf
+relayhost = [smtp.gmail.com]:587
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = noanonymous
+smtp_sasl_password_maps = hash:/etc/postfix/sasl/sasl_passwd
+smtp_tls_security_level = encrypt
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+
+sudo systemctl restart postfix
+sudo systemctl enable postfix --now
+echo "Brayan 2025-0703" | mail -s "MambruSeFueALaGuerra" os3conadrian@gmail.com
+
 
 ============================================
 
+Comandos usados practica 3
+
+sudo apt install cups cups-pdf
+sudo cupsctl --remote-admin --remove-any --share-printers
+sudo ufw allow 631/tcp
+sudo usermod -aG lpadmin kali
+
+============================================
