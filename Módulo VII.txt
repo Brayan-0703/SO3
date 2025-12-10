@@ -81,7 +81,7 @@ Ok
 sudo systemctl stop smbd nmbd winbind systemd-resolved
 sudo systemctl disable smbd nmbd winbind systemd-resolved
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
-sudo samba-tool domain provision --user-rfc23307 --interactive
+sudo samba-tool domain provision --user-rfc2307 --interactive
 1 enter
 2 enter
 3 enter
