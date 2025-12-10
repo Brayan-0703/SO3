@@ -44,3 +44,52 @@ sudo ufw allow 21/tcp
 sudo ufw status verbose
 
 ============================================
+
+Comandos usados practica 3
+
+sudo apt install -y snort libpcap-dev
+sudo nano /etc/snort/rules/local.rules
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping detectado"; sid:1000001; rev:1;)
+alert tcp any any -> $HOME_NET 21 (msg:"Tráfico FTP detectado"; sid:1000002; rev:1;)
+alert tcp any any -> $HOME_NET 22 (msg:"Tráfico SSH detectado"; sid:1000003; rev:1;)
+alert tcp any any -> $HOME_NET 80 (msg:"Tráfico HTTP detectado"; sid:1000004; rev:1;)
+
+sudo snort -T -c /etc/snort/snort.conf
+sudo snort -A console -q -c /etc/snort/snort.conf -i ens33 -l /var/log/snort/
+
+ping "ip del servirdor"
+ftp usuario@ip
+ssh usuario@ip
+curl ip:80
+
+============================================
+
+Comandos usados practica 4
+
+sudo apt install libpam-google-authenticator
+google-authenticator
+y
+poner codigo
+y
+y
+y
+y
+
+sudo nano /etc/pam.d/sshd
+# Disallow non-root logins when /etc/nologin exists.
+account  required pam_nologin.so
+auth required pan_google_authenticator.so
+
+sudo systemctl restart ssh
+sudo systemctl daemon-reload
+sudo systemctl restart ssh
+
+sudo nano /etc/ssh/sshd_config
+PasswordAuthentication yes
+ChallengeResponseAuthentication yes
+---------------------------------------
+UsePAM yes
+
+sudo systemctl restart ssh
+
+============================================
