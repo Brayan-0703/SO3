@@ -1,0 +1,42 @@
+Comandos usados practica 1
+
+Crear maquina en digital ocean
+Rocky Linux 8 
+
+yum update
+yum install wget -y
+wget http://repo.issabel.org/issabel5-netinstall.sh
+chmod 700 issabel5-netinstall.sh 
+./issabel5-netinstall.sh
+english
+16
+Choose additional package (s) to install:
+[*] Issabel Netowrk Licensed modules
+Contraseña: admin
+(*) chan_pjsip
+Naaah, get a real job
+systemctl stop fail2ban
+
+Maquina host poner ip del servidor digital ocean
+admin
+admin
+
+Te aparecera que te registres, dale a la x.
+PBX > Applications > Extensions > Submit
+
+User Extension: 2220 profesor
+Teletubies123$
+submit
+
+User Extension: 2221 profesor
+Teletubies123$
+submit
+
+CLICK EN APPLY
+
+MicroSIP
+Protocolo: SIP
+Usuario: 2221
+Contraseña: Teletubies123$
+Servidor/Domain/Host: tu ip
+Puerto: 5060/5066  (UDP)
