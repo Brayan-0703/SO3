@@ -65,3 +65,58 @@ sudo systemctl restart smdb
 cat /srv/samba/SO3/adrian99.txt
 
 ============================================
+
+Comandos usados practica 3
+
+ip a
+sudo nano /etc/hosts
+ip  so3.inet
+sudo apt install -y samba krb5-user winbind smbclient
+Default Kerberos version 5 realm:
+so3.inet
+Ok
+Ok
+
+sudo systemctl stop smbd nmbd winbind systemd-resolved
+sudo systemctl disable smbd nmbd winbind systemd-resolved
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
+sudo samba-tool domain provision --user-rfc23307 --interactive
+1 enter
+2 enter
+3 enter
+4 enter
+8.8.8.8
+Brayan20250703@
+Brayan20250703@
+
+sudo rm /etc/resolv.conf
+sudo nano /etc/resolv.conf
+nameserver 127.0.0.1
+domain so3.inet
+
+sudo systemctl unmask samba-ad-dc
+sudo systemctl start samba-ad-dc
+sudo systemctl enable samba-ad-dc
+
+sudo adduser lanegracubana
+Brayan20250703@
+Brayan20250703@
+full enter
+
+sudo samba-tool user create lanegracubana Brayan20250703@
+
+WINDOWS
+Panel de control > Redes e Internet > Centro de redes y recursos compartidos > Cambiar configuracion del adaptador > Propiedades de Ethernet > Propiedades de IPv4 > DNS cambiar a ip del servidor, aceptar, cerrar.
+
+Explorador del archivo > Este equipo > Propiedades > Configuracion avanzada del sistema > Nombre del equipo > Cambiar > Dominio, copiar nombre de equipo, Dominio: so3.inet
+
+Administrator/Administrador
+Brayan20250703@
+aceptar
+reiniciar
+
+Otro usuario
+lanegracubana
+Brayan20250703@
+
+============================================
