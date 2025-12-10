@@ -16,12 +16,15 @@ nmcli con mod "Wired\ connection\ 1" ipv6.method auto
 
 sudo ip a del 10.0.0.88/24 dev eth0
 sudo nano /etc/network/interfaces
+auto eth0
+iface eth0 inet dhcp
 
-sudo ifconfig eth0 down
-sudo ifconfig eth0 up
+sudo ifconfig eth0 down/up
 nmcli con down/up "Wired\ conection\ 1"
 
 sudo nano /etc/resol.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
 
 nmtui
 
@@ -31,15 +34,21 @@ Comandos usados practica 3
 
 sudo useradd brayannn
 id brayannn
+
 sudo groupadd guest
+
 sudo useradd pedro
 id pedro
+
 sudo usermod -aG guest pedro
 id pedro
+
 sudo userdel pedro
 id pedro
+
 sudo groupdel guest
 getent group guest
+
 sudo userdel brayannn
 id brayannn
 
@@ -50,14 +59,22 @@ Comandos usados practica 4
 mkdir materia
 ls
 cd materia
+
 touch estudiante.txt
 vi estudiante.txt
 cat estudiante.txt
+
 ls -l
 chmod 700 estudiante.txt
+ls -l
 chmod 070 estudiante.txt
+ls -l
+
 mkdir materia2
 sudo cp estudiante.txt ./materia2
+cd materia2
+sudo cat estudiante.txt
+cd
 rm -r materia
 
 ============================================
