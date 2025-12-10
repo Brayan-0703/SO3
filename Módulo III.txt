@@ -4,8 +4,13 @@ sudo nano /etc/default/grub
 sudo update-grub
 reboot
 
+Presionar "e" en el grub
+En la línea "linux" cambiar el valor "ro" a "rw" y al final de la línea poner "init=/bin/bash"
+
 passwd
 reboot -f
+
+su root
 
 ============================================
 
@@ -16,7 +21,7 @@ nano backup.sh
 #!/bin/bash
 
 echo "Iniciando backup..."
-tar -czvf /home/brayan/backup_$(date +%d-%m-%Y:%H:%M) /home/brayan
+tar -czvf /home/brayan/backup_$(date +%d-%m-%Y:%H:%M).tar.gz /home/brayan
 echo "Backup realizado con exito"
 
 chmod +x backup.sh
@@ -26,7 +31,7 @@ nano ifconfig.sh
 
 echo "Ingrese el nombre del archivo"
 read nombre_del_archivo
-ifconfig > "/home/brayan/Desktop/$nombre_del_archivo"
+ifconfig > "/home/brayan/Desktop/$nombre_del_archivo.txt"
 echo "Informacion de ifconfig guardada"
 
 chmod +x ifconfig.sh
