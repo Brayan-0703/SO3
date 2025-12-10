@@ -70,7 +70,8 @@ Comandos usados practica 3
 
 ip a
 sudo nano /etc/hosts
-ip  so3.inet
+ip  kali.so3.inet kali
+
 sudo apt install -y samba krb5-user winbind smbclient
 Default Kerberos version 5 realm:
 so3.inet
