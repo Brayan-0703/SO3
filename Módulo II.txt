@@ -7,7 +7,6 @@ cat /etc/apt/sources.list
 
 apt-cache search bashtop
 sudo apt install bashtop
-which bashtop
 bashtop
 
 sudo apt purge bashtop
@@ -18,10 +17,11 @@ sudo apt autoremove
 Comandos usados practica 2
 
 sudo crontab -e
-0 23 * * * sudo apt update && sudo apt upgrade -y
-0 3 * * 0 reboot
+0 23 * * * apt update && apt upgrade -y
+0 3 * * 0 reboot -f
 sudo crontab -l
-sudo echo "rm -rf /tmp/*" | at now + 1 minute
+
+echo "sudo rm -rf /tmp/*" | at now + 1 minute
 atq
 touch /tmp/prueba.txt
 ls /tmp
@@ -32,18 +32,19 @@ Comandos usados practica 3
 
 lsblk
 sudo fdisk /dev/sda
-(Dentro del programa fdisk)
 g (Crear nueva tabla de particiones con GPT)
 n (Crear nueva particion)
 w (Escribir los cambios)
-(Fin de la ejecucion del programa)
+
 sudo fdisk -l
 sudo mkfs.ext4 /dev/sda1
 
 mkdir Disco
 cd Disco
+
 sudo mount /dev/sda1 ~/Desktop/Disco
 touch AdrianAlcantara.txt
+
 sudo umount ~/Desktop/Disco
 sudo mount /dev/sda1 /mnt
 cd /mnt
